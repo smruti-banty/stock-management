@@ -1,5 +1,7 @@
 server:
   port: 1205
+  servlet:
+    context-path: /product-service
 spring:
   data:
     mongodb:
