@@ -1,0 +1,13 @@
+server:
+  port: 1205
+  servlet:
+    context-path: /product-service
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/stockmanagement
+
+kafka:
+  topic:
+    product:
+      history: cmd.purchase.purchasehistory
