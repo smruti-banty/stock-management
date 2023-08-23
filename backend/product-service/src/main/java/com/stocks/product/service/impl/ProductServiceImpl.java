@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private final KafkaTemplate<String, Product> productKafkaTemplate;
     private final ProductRepository productRepository;
     @Value("${kafka.topic.product.history}")
-    private final String productHistoryTopic;
+    private String productHistoryTopic;
 
     @Override
     public void addProduct(Product product) {
