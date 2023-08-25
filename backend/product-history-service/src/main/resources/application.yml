@@ -1,7 +1,7 @@
 server:
   port: 1206
   servlet:
-    context-path: /product-service
+    context-path: /product-history-service
 spring:
   data:
     mongodb:
