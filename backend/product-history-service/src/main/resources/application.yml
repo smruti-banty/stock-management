@@ -1,7 +1,7 @@
 server:
-  port: 1205
+  port: 1206
   servlet:
-    context-path: /product-service
+    context-path: /product-history-service
 spring:
   data:
     mongodb:
@@ -9,7 +9,10 @@ spring:
   kafka:
     consumer:
       auto-offset-reset: earliest
+
 kafka:
   topic:
     product:
       history: cmd.entity.product
+
+
