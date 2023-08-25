@@ -1,5 +1,6 @@
 package com.stocks.product.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stocks.product.model.entity.Product;
 import com.stocks.product.repository.ProductRepository;
 import com.stocks.product.service.ProductService;
@@ -17,8 +18,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final KafkaTemplate<String, Product> productKafkaTemplate;
+    private final KafkaTemplate<String, String> productKafkaTemplate;
     private final ProductRepository productRepository;
+    private final ObjectMapper objectMapper;
+
     @Value("${kafka.topic.product.history}")
     private String productHistoryTopic;
 
@@ -49,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setUpdatedDate(updatedDate);
 
         productRepository.save(newProduct);
-        productKafkaTemplate.send(productHistoryTopic, oldProduct);
+        productKafkaTemplate.send(productHistoryTopic, convertString(oldProduct));
     }
 
     @Override
@@ -57,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
         log.info("Product id received {}", productId);
 
         var product = getProduct(productId);
-        productKafkaTemplate.send(productHistoryTopic, product);
+        productKafkaTemplate.send(productHistoryTopic, convertString(product));
 
         product.setActive(false);
         product.setUpdatedDate(currentTime());
@@ -90,5 +93,15 @@ public class ProductServiceImpl implements ProductService {
 
     private LocalDateTime currentTime() {
         return LocalDateTime.now();
+    }
+
+    private String convertString(Product product) {
+        var string = "";
+        try {
+            string = objectMapper.writeValueAsString(product);
+        } catch (Exception e) {
+            log.error("Conversion issue", e);
+        }
+        return string;
     }
 }
