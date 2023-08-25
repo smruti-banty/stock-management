@@ -6,8 +6,13 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/stockmanagement
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
 
 kafka:
   topic:
     product:
-      history: cmd.purchase.purchasehistory
+      history: cmd.entity.product
+
+
