@@ -26,7 +26,7 @@ public class StockListener {
         stockService.updateProduct(product);
     }
 
-    @KafkaListener(id = "updateProductFromStock", topics = PRODUCT_STOCK_TOPIC)
+    @KafkaListener(id = "createStockFromProduct", topics = PRODUCT_STOCK_TOPIC)
     public void createStock(String data) {
         log.info("Received Product {}", data);
 

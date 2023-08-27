@@ -15,6 +15,11 @@ public class StockTopicConfig {
     private String PRODUCT_STOCK_TOPIC;
 
     @Bean
+    public NewTopic productUpdateTopic() {
+        return TopicBuilder.name(PRODUCT_UPDATE_TOPIC).build();
+    }
+
+    @Bean
     public NewTopic productStockTopic() {
         return TopicBuilder.name(PRODUCT_STOCK_TOPIC).build();
     }
