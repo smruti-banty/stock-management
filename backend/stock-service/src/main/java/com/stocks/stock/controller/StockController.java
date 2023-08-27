@@ -63,7 +63,7 @@ public class StockController {
         return stockService.getActiveProductsStocks();
     }
 
-    @GetMapping("/product/active")
+    @GetMapping("/product/inactive")
     public List<Stock> getInActiveStocks() {
         return stockService.getInActiveProductsStocks();
     }
