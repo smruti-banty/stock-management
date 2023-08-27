@@ -23,7 +23,13 @@ public class ProductServiceImpl implements ProductService {
     private final ObjectMapper objectMapper;
 
     @Value("${kafka.topic.product.history}")
-    private String productHistoryTopic;
+    private String PRODUCT_HISTORY_TOPIC;
+
+    @Value("${kafka.topic.product.update}")
+    private String PRODUCT_UPDATE_TOPIC;
+
+    @Value("${kafka.topic.stock.add}")
+    private String PRODUCT_STOCK_TOPIC;
 
     @Override
     public void addProduct(Product product) {
@@ -35,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
         product.setUpdatedDate(currentTime());
 
         productRepository.insert(product);
+        productKafkaTemplate.send(PRODUCT_STOCK_TOPIC, convertString(product));
     }
 
     @Override
@@ -52,7 +59,8 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setUpdatedDate(updatedDate);
 
         productRepository.save(newProduct);
-        productKafkaTemplate.send(productHistoryTopic, convertString(oldProduct));
+        productKafkaTemplate.send(PRODUCT_HISTORY_TOPIC, convertString(oldProduct));
+        productKafkaTemplate.send(PRODUCT_UPDATE_TOPIC, convertString(newProduct));
     }
 
     @Override
@@ -60,11 +68,12 @@ public class ProductServiceImpl implements ProductService {
         log.info("Product id received {}", productId);
 
         var product = getProduct(productId);
-        productKafkaTemplate.send(productHistoryTopic, convertString(product));
+        productKafkaTemplate.send(PRODUCT_HISTORY_TOPIC, convertString(product));
 
         product.setActive(false);
         product.setUpdatedDate(currentTime());
         productRepository.save(product);
+        productKafkaTemplate.send(PRODUCT_UPDATE_TOPIC, convertString(product));
     }
 
     @Override
