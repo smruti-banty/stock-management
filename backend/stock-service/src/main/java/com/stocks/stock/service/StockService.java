@@ -6,7 +6,7 @@ import com.stocks.stock.model.Stock;
 import java.util.List;
 
 public interface StockService {
-    void createStock(Stock stock);
+    void createStock(Product product);
 
     void updateProduct(Product product);
 

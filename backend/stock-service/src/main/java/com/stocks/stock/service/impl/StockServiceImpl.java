@@ -19,16 +19,20 @@ public class StockServiceImpl implements StockService {
     private final StockRepository stockRepository;
 
     @Override
-    public void createStock(Stock stock) {
-        log.info("Data received {}", stock);
+    public void createStock(Product product) {
+        log.info("Data received {}", product);
+
         var currentTime = currentTime();
         var stockId = getUUID();
         var updatedBy = "Admin";
 
-        stock.setStockId(stockId);
-        stock.setCreatedDate(currentTime);
-        stock.setUpdatedDate(currentTime);
-        stock.setUpdatedBy(updatedBy);
+        var stock = Stock.builder()
+                .stockId(stockId)
+                .product(product)
+                .createdDate(currentTime)
+                .updatedDate(currentTime)
+                .updatedBy(updatedBy)
+                .build();
 
         stockRepository.insert(stock);
     }
