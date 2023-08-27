@@ -1,0 +1,18 @@
+server:
+  port: 1207
+  servlet:
+    context-path: /stock-service
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/stockmanagement
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+
+kafka:
+  topic:
+    product:
+      update: cmd.update.product
+    stock:
+      add: cmd.product.stock
