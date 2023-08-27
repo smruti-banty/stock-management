@@ -13,3 +13,6 @@ kafka:
   topic:
     product:
       history: cmd.entity.product
+      update: cmd.update.product
+    stock:
+      add: cmd.product.stock
