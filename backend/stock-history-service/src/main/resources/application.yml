@@ -12,5 +12,5 @@ spring:
 
 kafka:
   topic:
-    product:
+    stock:
       history: cmd.entity.stock
