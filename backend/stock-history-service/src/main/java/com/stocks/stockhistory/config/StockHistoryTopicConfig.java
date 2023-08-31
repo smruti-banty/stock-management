@@ -8,7 +8,7 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class StockHistoryTopicConfig {
-    @Value("${kafka.topic.product.history}")
+    @Value("${kafka.topic.stock.history}")
     private String stockHistoryTopic;
 
     @Bean
