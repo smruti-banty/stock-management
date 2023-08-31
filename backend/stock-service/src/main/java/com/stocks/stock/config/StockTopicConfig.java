@@ -14,6 +14,9 @@ public class StockTopicConfig {
     @Value("${kafka.topic.stock.add}")
     private String PRODUCT_STOCK_TOPIC;
 
+    @Value("${kafka.topic.stock.history}")
+    private String STOCK_HISTORY_TOPIC;
+
     @Bean
     public NewTopic productUpdateTopic() {
         return TopicBuilder.name(PRODUCT_UPDATE_TOPIC).build();
@@ -22,5 +25,10 @@ public class StockTopicConfig {
     @Bean
     public NewTopic productStockTopic() {
         return TopicBuilder.name(PRODUCT_STOCK_TOPIC).build();
+    }
+
+    @Bean
+    public NewTopic stockHistoryTopic() {
+        return TopicBuilder.name(STOCK_HISTORY_TOPIC).build();
     }
 }

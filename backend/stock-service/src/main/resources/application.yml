@@ -16,3 +16,5 @@ kafka:
       update: cmd.update.product
     stock:
       add: cmd.product.stock
+      history: cmd.entity.stock
+
