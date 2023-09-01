@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /stock-service
 spring:
+  application:
+    name: stock-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/stockmanagement
@@ -18,3 +20,7 @@ kafka:
       add: cmd.product.stock
       history: cmd.entity.stock
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
